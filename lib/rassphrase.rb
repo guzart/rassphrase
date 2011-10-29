@@ -1,5 +1,2 @@
 require "rassphrase/version"
-
-module Rassphrase
-  
-end
+require "rassphrase/dice"

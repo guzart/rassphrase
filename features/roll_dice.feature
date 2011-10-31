@@ -1,6 +1,7 @@
-Feature: Roll dice
-  To ensure randomness, rassphrase will simulate the throw of a dice
-  to generate a random code.
+Feature: Dice simulation
+
+  In real life a dice is used to generate a random number. To replicate
+  this randomness in software, I want to roll a virtual dice.
 
   Scenario: Dice numbers range
     Given that a dice has 6 sides

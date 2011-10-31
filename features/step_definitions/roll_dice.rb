@@ -20,6 +20,5 @@ end
 Then /^I should get at least (\d+) different numbers$/ do |count|
   different = []
   @results.each { |n| different << n unless different.index(n) }
-  puts different
   different.size.should be >= count.to_i
 end

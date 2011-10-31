@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+path_to_lib = "../../lib/"
+$LOAD_PATH << File.expand_path(path_to_lib, __FILE__)
+
+require "optparse"
+require 'rassphrase'
+
+@options = {
+  :number => 1,
+  :size => 5,
+  :wordlist_path => File.expand_path("#{path_to_lib}diceware.wordlist", __FILE__)
+}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: rassphrase [options]"
+
+  opts.on("-s SIZE", Integer, "Specifies the number of words for the passphrase") do |s|
+    @options[:size] = s
+  end
+
+  opts.on("-c", "Capitalizes the words in the passphrase") do
+    @options[:capitalize] = true
+  end
+
+  opts.on("-b", "Uses the Beale wordlist dictionary.") do |w|
+    @options[:wordlist_path] = File.expand_path("#{path_to_lib}beale.wordlist", __FILE__)
+  end
+
+  opts.on("-n NUMBER", Integer, "The number of passphrases to generate") do |n|
+    @options[:number] = n.to_i
+  end
+end
+optparse.parse!
+
+rassphrase = Rassphrase::Rassphrase.new(@options)
+@options[:number].times do 
+  puts rassphrase.generate
+end

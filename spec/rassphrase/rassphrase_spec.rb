@@ -26,7 +26,7 @@ module Rassphrase
       context "accepts a hash argument with" do
         it ":dice to specify the dice" do
           dice = Dice.new
-          Rassphrase.new(:dice => dice).generate_code
+          Rassphrase.new(:dice => dice).random_code
           dice.roll_count.should > 0
         end
 
@@ -88,24 +88,6 @@ module Rassphrase
       end
     end
 
-    describe "#generate_code" do
-      it "returns five characters" do
-        rassphrase.generate_code.size.should be 5
-      end
-
-      it "returns only numeric characters" do
-        rassphrase.generate_code.should match /\d{5}/
-      end
-
-      it "returns numeric characters between 1 and 6" do
-        code = rassphrase.generate_code.split('')
-        code.each do |c|
-          c.to_i.should be <= 6
-          c.to_i.should be >= 1
-        end
-      end
-    end
-
     describe "#length" do
       it "returns the number of words in the passphrase" do
         rassphrase.should have(5).words
@@ -118,6 +100,24 @@ module Rassphrase
       it "returns the generated passphrase" do
         passphrase = rassphrase.generate
         rassphrase.passphrase.should == passphrase
+      end
+    end
+
+    describe "#random_code" do
+      it "returns five characters" do
+        rassphrase.random_code.size.should be 5
+      end
+
+      it "returns only numeric characters" do
+        rassphrase.random_code.should match /\d{5}/
+      end
+
+      it "returns numeric characters between 1 and 6" do
+        code = rassphrase.random_code.split('')
+        code.each do |c|
+          c.to_i.should be <= 6
+          c.to_i.should be >= 1
+        end
       end
     end
 

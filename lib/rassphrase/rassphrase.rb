@@ -44,7 +44,7 @@ module Rassphrase
     end
 
     # Generates random code
-    def generate_code
+    def random_code
       code = ''
       5.times { code << @dice.roll.to_s }
       return code
@@ -68,7 +68,7 @@ module Rassphrase
     def random_item
       word = nil
       until word do
-        code = self.generate_code
+        code = self.random_code
         word = self.word(code)
       end
       {:code => code, :word => word}

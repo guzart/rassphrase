@@ -10,7 +10,7 @@ end
 
 When /^I ask for a diceware code$/ do
   @dice_rolls_before_code = @dice.roll_count
-  @code = @rassphrase.generate_code
+  @code = @rassphrase.random_code
 end
 
 Then /^the dice should roll (\d+) times$/ do |times|

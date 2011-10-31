@@ -50,14 +50,15 @@ Usage
 
 #### Options
 
-*size* => Integer - The number of words that make a passphrase.
-*capitalize* => Boolean - Indicates if the words in the passphrase should be capitalized.
-*use_beale* => Boolean - Indicate if it should use the beale wordlist.
-*wordlist_path* => String - A path to a wordlist to use
++ **size** => Integer - The number of words that make a passphrase.
++ **capitalize** => Boolean - Indicates if the words in the passphrase should be capitalized.
++ **use_beale** => Boolean - Indicate if it should use the beale wordlist.
++ **wordlist_path** => String - A path to a wordlist to use
 
 ### Binary
 
 rassphrase comes with a binary called....(drum roll) rassphrase.
+
     rassphrase [options]
       -h          Shows the command options
       -s SIZE     The number of words in the passphrase

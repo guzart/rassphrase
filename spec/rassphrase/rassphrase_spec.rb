@@ -23,7 +23,7 @@ module Rassphrase
         rassphrase.words.should_not be_empty
       end
 
-      context "accepts a hash argument with the option" do
+      context "accepts a hash argument with" do
         it ":dice to specify the dice" do
           dice = Dice.new
           Rassphrase.new(:dice => dice).generate_code
@@ -74,6 +74,18 @@ module Rassphrase
         rassphrase.generate(8)
         rassphrase.should have(8).words
       end
+
+      context "accepts a hash argument with" do
+        it ":size to specify the size of the passphrase" do
+          rassphrase.generate(:size => 10)
+          rassphrase.should have(10).words
+        end
+
+        it ":capitalize to specify if words should be capitalized" do
+          passphrase = rassphrase.generate(:capitalize => false)
+          passphrase.should == rassphrase.words.join
+        end
+      end
     end
 
     describe "#generate_code" do
@@ -99,6 +111,13 @@ module Rassphrase
         rassphrase.should have(5).words
         rassphrase.generate(9)
         rassphrase.should have(9).words
+      end
+    end
+
+    describe "#passphrase" do
+      it "returns the generated passphrase" do
+        passphrase = rassphrase.generate
+        rassphrase.passphrase.should == passphrase
       end
     end
 

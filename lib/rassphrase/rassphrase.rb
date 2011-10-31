@@ -26,15 +26,21 @@ module Rassphrase
 
     # Generates a new passphrase.
     # If a size is specified then it generates a passphrase with the given size.
-    def generate(size = nil)
-      size ||= @size
+    def generate(options = nil)
+      capitalize = @capitalize
+      if options.kind_of?(Hash)
+        size = options[:size] || @size
+        capitalize = options[:capitalize] if options.has_key?(:capitalize)
+      else
+        size = options || @size
+      end
       @words, @codes = [], []
       size.times do
         item = random_item
         @codes << item[:code]
         @words << item[:word]
       end
-      self.passphrase
+      self.passphrase(capitalize)
     end
 
     # Generates random code
@@ -52,8 +58,9 @@ module Rassphrase
     alias :size :length
 
     # Returns the generated passphrase
-    def passphrase
-      return self.words.join unless @capitalize
+    def passphrase(capitalize = nil)
+      capitalize = @capitalize if capitalize == nil
+      return self.words.join unless capitalize
       self.words.map { |w| w.capitalize }.join
     end
 

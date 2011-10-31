@@ -15,8 +15,12 @@ module Rassphrase
         rassphrase.should have(5).words
       end
 
-      it "generates a passphrase" do
-        rassphrase.passphrase.should have_at_least(4).characters
+      it "capitalizes words by default" do
+        rassphrase.passphrase.should == rassphrase.words.map{|w| w.capitalize}.join
+      end
+
+      it "generates an initial passphrase" do
+        rassphrase.words.should_not be_empty
       end
 
       context "accepts a hash argument with the option" do

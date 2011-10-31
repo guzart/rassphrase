@@ -127,7 +127,7 @@ module Rassphrase
 
     describe "#words" do
       it "returns the words used in the passphrase" do
-        rassphrase.passphrase.should == rassphrase.words.join
+        rassphrase.passphrase.downcase.should == rassphrase.words.join.downcase
       end
     end
 

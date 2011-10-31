@@ -7,7 +7,7 @@ When /^I generate a passphrase with (\d+) words$/ do |word_count|
 end
 
 Then /^I get a passphrase with concatenated words$/ do
-  @passphrase.should == @rassphrase.words.join
+  @passphrase.downcase.should == @rassphrase.words.join.downcase
 end
 
 Then /^all the words are different$/ do

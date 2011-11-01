@@ -21,9 +21,11 @@ Install
 ### Gems
 
 To install the latest "stable" version:
+
     $ gem install rassphrase
 
 To install the development version:
+
     $ git clone git://github.com/guzart/rassphrase.git
     $ cd rassphrase
     $ git pull origin develop
@@ -33,9 +35,11 @@ To install the development version:
 ### Bundler (inside your Gemfile)
 
 To install the latest "stable" version:
+
     gem 'rassphrase'
 
 To install the development version:
+
     gem 'rassphrase', :git => "git://github.com/guzart/rassphrase.git", :branch => "develop"
 
 Usage
@@ -43,10 +47,17 @@ Usage
 
 ### Ruby
 
+Using an instance
+
     require 'rassphrase'
     rassphrase = Rassphrase::Rassphrase.new(:capitalize => true)
     password = rassphrase.generate(10)
 
+Using the class method
+
+    # Generates an array of 10 passphrases
+    require 'rassphrase'
+    passphrases = Rassphrase::Rassphrase.generate({:count => 10})
 
 #### Options
 

@@ -6,6 +6,34 @@ module Rassphrase
     let(:rassphrase) { Rassphrase.new }
     let(:beale_path) { File.expand_path("../../../lib/beale.wordlist", __FILE__) }
 
+    describe "::generate" do
+      it "defaults to 5 words" do
+        pending 'not sure how to do this test'
+      end
+
+      it "defaults to generate 1 passphrase" do
+        Rassphrase.generate.should be_an_instance_of(String)
+      end
+
+      it "defaults to capitalize words" do 
+        pending 'not sure how to do this test'
+      end
+
+      context "accepts a hash argument that" do
+        it "uses :size to specify the size of the passphrase" do
+          pending 'same as defaults to 5 words'
+        end
+
+        it "uses :capitalize to return passphrase with capitalize words" do
+          pending 'same as defuaults to capitalize'
+        end
+
+        it "uses :count to indicate how many passphrases should be generated" do
+          Rassphrase.generate(:count => 5).should have(5).passphrases
+        end
+      end
+    end
+
     describe "#initialize" do
       it "deaults to use the diceware wordlist" do
         rassphrase.word("12345").should == "apathy"
@@ -129,6 +157,12 @@ module Rassphrase
 
       it "keeps generating codes until a word is found" do
         pending 'have to use a mock on self'
+      end
+    end
+
+    describe "#to_s" do
+      it "returns the passphrase" do
+        rassphrase.to_s.should == rassphrase.passphrase
       end
     end
 

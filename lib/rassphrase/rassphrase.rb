@@ -1,5 +1,17 @@
 module Rassphrase
   class Rassphrase
+
+    def self.generate(options = {})
+      r = self.new(options)
+      count = options[:count] || 1
+      passphrases = []
+      count.times do 
+        passphrases << r.generate
+      end
+      return passphrases.first if count == 1
+      passphrases
+    end
+
     
     # Initializes an instance of Rassphrase with the specified options
     # 
@@ -72,6 +84,10 @@ module Rassphrase
         word = self.word(code)
       end
       {:code => code, :word => word}
+    end
+
+    def to_s
+      self.passphrase
     end
 
     # Returns the word for the specified code searching the wordlist.

@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Arturo Guzman"]
   s.email       = ["arturo@agrdt.com"]
   s.homepage    = "https://github.com/guzart/rassphrase"
-  s.summary     = "A Ruby implementation of Diceware passphrase"
-  s.description = "Uses the Diceware passphrase dictionary and method to generate secure passphrases."
+  s.summary     = "A Ruby implementation of Diceware passphrase."
+  s.description = "Uses the Diceware method and method to generate secure passphrases."
 
   s.rubyforge_project = "rassphrase"
 

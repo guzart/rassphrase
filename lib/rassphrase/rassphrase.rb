@@ -1,64 +1,107 @@
 module Rassphrase
   class Rassphrase
+
+    def self.generate(options = {})
+      r = self.new(options)
+      count = options[:count] || 1
+      passphrases = []
+      count.times do 
+        passphrases << r.generate
+      end
+      return passphrases.first if count == 1
+      passphrases
+    end
+
     
+    # Initializes an instance of Rassphrase with the specified options
+    # 
+    # The rassphrase options are:
+    # * :dice => An instance of a class with a method roll, that returns a random number.
+    # * :size => The default number of words in a passphrase
+    # * :capitalize => Indicates if the words should be capitalize in the passphrase [defaults to true]
+    # * :wordlist_path => A path to a file containing a wordlist
+    # * :wordlist => The hash to use as a wordlist
     def initialize(options = {})
       @wordlist = []
       @dice = options[:dice] || Dice.new
       @size = options[:size] || 5
-      @capitalize = options[:capitalize] || false
+      @capitalize = options[:capitalize] || true
       wordlist_path = options[:wordlist_path] || File.expand_path('../../diceware.wordlist', __FILE__)
       self.wordlist = options[:wordlist] || WordlistParser::parse(wordlist_path)
       self.generate
     end
 
+    # The codes for the words used in the current passphrase.
     def codes
       @codes ||= []
     end
 
-    def generate(size = nil)
-      size ||= @size
+    # Generates a new passphrase.
+    # If a size is specified then it generates a passphrase with the given size.
+    def generate(options = nil)
+      capitalize = @capitalize
+      if options.kind_of?(Hash)
+        size = options[:size] || @size
+        capitalize = options[:capitalize] if options.has_key?(:capitalize)
+      else
+        size = options || @size
+      end
       @words, @codes = [], []
       size.times do
         item = random_item
         @codes << item[:code]
         @words << item[:word]
       end
-      self.passphrase
+      self.passphrase(capitalize)
     end
 
-    def generate_code
+    # Generates random code
+    def random_code
       code = ''
       5.times { code << @dice.roll.to_s }
       return code
     end
 
+    # Returns the size of the passphrase
     def length
       self.words.length
     end
 
-    def passphrase
-      return self.words.join unless @capitalize
+    alias :size :length
+
+    # Returns the generated passphrase
+    def passphrase(capitalize = nil)
+      capitalize = @capitalize if capitalize == nil
+      return self.words.join unless capitalize
       self.words.map { |w| w.capitalize }.join
     end
 
+    # Returns a random item from the wordlist
     def random_item
       word = nil
       until word do
-        code = self.generate_code
+        code = self.random_code
         word = self.word(code)
       end
       {:code => code, :word => word}
     end
 
+    def to_s
+      self.passphrase
+    end
+
+    # Returns the word for the specified code searching the wordlist.
     def word(code)
       @wordlist[code.to_s]
     end
 
+    # Assigns a new wordlist
     def wordlist=(wordlist)
       wordlist = WordlistParser::parse(wordlist) if wordlist.is_a?(String) && File.file?(wordlist)
       @wordlist = wordlist.inject({}){ |wl, (k,v)| wl[k.to_s] = v; wl}
     end
 
+    # Returns the words used in the passphrase
     def words
       @words ||= []
     end

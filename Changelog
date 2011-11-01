@@ -1,0 +1,7 @@
+0.1 (October 31, 2011)
+  Defaults :capitalize to true
+  Add option hash argument to Rassphrase#generate
+  Add boolean argument to Rassphrase#passphrase, that indicates capitalization
+  Rename Rassphrase#generate_code to Rassphrase#random_code
+  Add class method Rassphrase::generate
+  Overwrote Rassphrase#to_s

@@ -18,8 +18,8 @@ optparse = OptionParser.new do |opts|
     @options[:size] = s
   end
 
-  opts.on("-c", "Capitalizes the words in the passphrase") do
-    @options[:capitalize] = true
+  opts.on("-c", "--[no-]capitalize", "Capitalizes the words in the passphrase") do |c|
+    @options[:capitalize] = c
   end
 
   opts.on("-b", "Uses the Beale wordlist dictionary.") do |w|
